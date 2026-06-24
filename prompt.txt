@@ -1,0 +1,72 @@
+<instruction_meta>
+    <role>Expert Frontend Developer and UI/UX Designer</role>
+    <task>Create a complete, fully responsive, and professional Landing Page for a specialized winery management software. The layout must be generated autonomously in a single execution without placeholders or incomplete code blocks.</task>
+    <tech_stack>HTML5, Tailwind CSS (via CDN), FontAwesome (via CDN for icons), and Vanilla JavaScript for interactions.</tech_stack>
+</instruction_meta>
+
+<context>
+    We are launching "VinoTrack", a modern SaaS platform designed specifically for the viticulture and winery industry. The software specializes in bulk wine traceability, real-time tank and vessel monitoring (vasijas/piletas), cellar management, and automated tracking of enological treatments and racking (trasiegos). The target audience consists of winemakers, cellar masters, and winery administrators who need precision, clear data visualization, and absolute control over their stock.
+</context>
+
+<design_system>
+    <colors>
+        - Primary: Deep Wine/Burgundy (e.g., #5c061e or #4a0404)
+        - Secondary: Elegant Gold/Amber (e.g., #d4af37 or #b8860b) for accents and CTAs.
+        - Neutral Dark: Rich Charcoal (#1a1a1a) for text and dark backgrounds.
+        - Neutral Light: Soft Cream/Off-White (#fdfbf7) to reflect an organic, premium feel.
+    </colors>
+    <typography>Clean, modern, and highly readable sans-serif typography via Tailwind.</typography>
+</design_system>
+
+<required_sections>
+    <section id="1" name="Header & Navigation">
+        - Fixed or sticky top navigation bar.
+        - Logo/Brand Name: "VinoTrack".
+        - Navigation Links: Features, About Us, Testimonials, Contact.
+        - Responsive mobile menu button (hamburger menu) with JavaScript toggle functionality.
+    </section>
+
+    <section id="2" name="Hero Section">
+        - Impactful headline emphasizing precision and real-time cellar control.
+        - Subheadline mentioning bulk wine traceability, tank levels, and operational states.
+        - At least one clear Call to Action (CTA) button ("Request a Demo" or "Explore Platform") using the secondary gold/amber accent.
+        - Professional background styling or layout structure suitable for a high-tech winery application.
+    </section>
+
+    <section id="3" name="About Us / Description">
+        - Comprehensive overview explaining the mission to modernize winery operations.
+        - Mention the challenges of traditional winemaking inventory and how digital transformation improves efficiency from grape reception to final bottling.
+    </section>
+
+    <section id="4" name="Features / Core Services">
+        - A grid or list highlighting 3-4 major software features:
+          1. "Bulk Wine Traceability": End-to-end logging of wine lots and blend compositions.
+          2. "Vessel & Tank Monitoring": Color-coded visual status of piletas/vasijas, including approximate filling levels, current state, and specific sector categorization.
+          3. "Racking & Enological Logs": Seamless tracking of operations like "trasiego", filtration, and lab analyses.
+    </section>
+
+    <section id="5" name="Testimonials & Reviews">
+        - At least 2 realistic reviews from industry professionals (e.g., "Chief Winemaker at Mendoza Estates", "Cellar Operations Director").
+        - Highly professional design utilizing card layouts and quote icons.
+    </section>
+
+    <section id="6" name="Contact Form">
+        - A beautifully stylized contact section.
+        - Includes a visual mock form with fields: Full Name, Winery/Company Name, Email, and Message.
+        - A prominent "Send Inquiry" button. (Visual layout only, backend functionality is not required).
+    </section>
+
+    <section id="7" name="Footer">
+        - Copyright notice with the current year.
+        - Quick links repeating navigation.
+        - Social media icon links (using FontAwesome) for LinkedIn, X, and GitHub.
+    </section>
+</required_sections>
+
+<output_constraints>
+    - CRITICAL: Provide the complete, production-ready code inside a SINGLE valid HTML block.
+    - DO NOT use placeholders, generic text like "Lorem Ipsum", or comments telling the user to "insert code here". Every single section listed above must have fully written realistic copy in Spanish, customized layouts, and proper styling classes.
+    - Include the JavaScript required for basic interactivity (such as mobile menu toggling or interactive UI elements) in a <script> tag at the end of the file.
+</output_constraints>
+
+Generate the complete index.html file now following these exact instructions.

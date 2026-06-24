@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VinoTrack - Gestión Integral de Bodegas y Trazabilidad de Vinos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #5c061e;
+            --primary-dark: #4a0404;
+            --secondary: #d4af37;
+            --dark: #1a1a1a;
+            --light: #fdfbf7;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .text-primary {
+            color: var(--primary);
+        }
+
+        .bg-primary {
+            background-color: var(--primary);
+        }
+
+        .bg-primary-dark {
+            background-color: var(--primary-dark);
+        }
+
+        .text-secondary {
+            color: var(--secondary);
+        }
+
+        .bg-secondary {
+            background-color: var(--secondary);
+        }
+
+        .btn-primary {
+            background-color: var(--secondary);
+            color: var(--dark);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #c9a22a;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--secondary);
+            color: var(--dark);
+        }
+
+        .feature-card {
+            background-color: var(--light);
+            border-left: 4px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card {
+            background-color: white;
+            border-top: 3px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            box-shadow: 0 20px 40px rgba(92, 6, 30, 0.15);
+        }
+
+        .hero-bg {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .section-title {
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary);
+        }
+
+        .nav-link {
+            color: white;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            max-height: 400px;
+        }
+
+        .input-field {
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 12px 16px;
+            transition: all 0.3s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .stat-number {
+            color: var(--secondary);
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background-color: var(--secondary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--dark);
+            font-size: 1.5rem;
+        }
+
+        .quote-icon {
+            color: var(--secondary);
+            opacity: 0.3;
+            font-size: 2.5rem;
+            margin-bottom: -20px;
+        }
+
+        @media (max-width: 768px) {
+            .stat-number {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <!-- HEADER & NAVIGATION -->
+    <header id="navbar" class="fixed w-full top-0 z-50 bg-primary-dark shadow-lg">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-wine-glass text-secondary text-2xl"></i>
+                    <span class="text-white font-bold text-2xl">VinoTrack</span>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex gap-8">
+                    <a href="#features" class="nav-link">Características</a>
+                    <a href="#about" class="nav-link">Acerca de</a>
+                    <a href="#testimonials" class="nav-link">Testimonios</a>
+                    <a href="#contact" class="nav-link">Contacto</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <button id="menuToggle" class="md:hidden text-white text-xl">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div id="mobileMenu" class="mobile-menu md:hidden bg-primary-dark border-t border-secondary">
+                <div class="flex flex-col gap-4 px-4 py-4">
+                    <a href="#features" class="text-white hover:text-secondary transition">Características</a>
+                    <a href="#about" class="text-white hover:text-secondary transition">Acerca de</a>
+                    <a href="#testimonials" class="text-white hover:text-secondary transition">Testimonios</a>
+                    <a href="#contact" class="text-white hover:text-secondary transition">Contacto</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="hero" class="hero-bg text-white pt-32 pb-20 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">
+                        Control Total de tu Bodega en Tiempo Real
+                    </h1>
+                    <p class="text-xl mb-8 text-gray-100 leading-relaxed">
+                        VinoTrack revoluciona la gestión enológica con trazabilidad integral de vinos a granel, monitoreo de tanques y piletas, y seguimiento automático de operaciones de trasiego. Precisión absoluta desde la recepción de uva hasta el embotellado.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="btn-primary px-8 py-4 rounded-lg text-lg">
+                            <i class="fas fa-arrow-right mr-2"></i>Solicitar Demo
+                        </button>
+                        <button class="btn-secondary px-8 py-4 rounded-lg text-lg">
+                            Explorar Plataforma
+                        </button>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="bg-gradient-to-br from-secondary to-yellow-600 rounded-lg p-8 shadow-2xl">
+                        <div class="bg-white rounded-lg p-6">
+                            <div class="grid grid-cols-2 gap-4 mb-4">
+                                <div class="bg-gray-50 p-4 rounded-lg border-2 border-green-500">
+                                    <p class="text-xs text-gray-600 uppercase">Tanque A</p>
+                                    <p class="text-2xl font-bold text-primary">85%</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg border-2 border-yellow-500">
+                                    <p class="text-xs text-gray-600 uppercase">Tanque B</p>
+                                    <p class="text-2xl font-bold text-primary">42%</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg border-2 border-red-500">
+                                    <p class="text-xs text-gray-600 uppercase">Tanque C</p>
+                                    <p class="text-2xl font-bold text-primary">18%</p>
+                                </div>
+                                <div class="bg-gray-50 p-4 rounded-lg border-2 border-blue-500">
+                                    <p class="text-xs text-gray-600 uppercase">Tanque D</p>
+                                    <p class="text-2xl font-bold text-primary">100%</p>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-500 text-center">Dashboard de Monitoreo en Vivo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-4xl font-bold mb-4">Sobre VinoTrack</h2>
+                <p class="text-gray-600 text-lg max-w-3xl mx-auto mt-12">
+                    En la industria vitivinícola, cada detalle importa. La calidad del vino depende no solo de la materia prima, sino de un control exhaustivo durante todo el proceso de elaboración, desde la recepción de uva hasta el embotellado final.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <p class="text-gray-700 text-lg mb-6 leading-relaxed">
+                        Históricamente, los bodeegueros han confiado en métodos manuales y sistemas desconectados, lo que generaba ineficiencias, pérdidas de datos críticos y dificultades en la trazabilidad. VinoTrack nace con la misión de transformar digitalmente la gestión enológica.
+                    </p>
+                    <p class="text-gray-700 text-lg mb-6 leading-relaxed">
+                        Nuestra plataforma integra:
+                    </p>
+                    <ul class="space-y-3 text-gray-700">
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-check text-secondary text-xl"></i>
+                            <span>Trazabilidad completa de lotes y blends</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-check text-secondary text-xl"></i>
+                            <span>Monitoreo en tiempo real de tanques y piletas</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-check text-secondary text-xl"></i>
+                            <span>Registro automático de operaciones (trasiego, filtración)</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-check text-secondary text-xl"></i>
+                            <span>Análisis enológicos integrados y documentación normativa</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-primary text-white p-8 rounded-lg text-center">
+                        <div class="stat-number">2500+</div>
+                        <p class="text-gray-200">Lotes Rastreados</p>
+                    </div>
+                    <div class="bg-secondary text-primary-dark p-8 rounded-lg text-center">
+                        <div class="stat-number">150+</div>
+                        <p class="font-semibold">Bodegas Activas</p>
+                    </div>
+                    <div class="bg-primary text-white p-8 rounded-lg text-center">
+                        <div class="stat-number">99.9%</div>
+                        <p class="text-gray-200">Disponibilidad</p>
+                    </div>
+                    <div class="bg-secondary text-primary-dark p-8 rounded-lg text-center">
+                        <div class="stat-number">24/7</div>
+                        <p class="font-semibold">Soporte Técnico</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES SECTION -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-4xl font-bold mb-4">Características Principales</h2>
+                <p class="text-gray-600 text-lg max-w-3xl mx-auto mt-12">
+                    VinoTrack ofrece un conjunto completo de herramientas diseñadas específicamente para las necesidades únicas de la industria vitivinícola moderna.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="feature-card p-8 rounded-lg shadow-md">
+                    <div class="icon-box mb-6">
+                        <i class="fas fa-link"></i>
+                    </div>
+                    <h3 class="text-primary font-bold text-2xl mb-4">Trazabilidad de Vinos a Granel</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Registro completo de cada lote desde la recepción de uva. Documentación automática de blends, operaciones enológicas, y provenance total. Cumplimiento normativo garantizado con auditoría integral.
+                    </p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="feature-card p-8 rounded-lg shadow-md">
+                    <div class="icon-box mb-6">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3 class="text-primary font-bold text-2xl mb-4">Monitoreo de Tanques y Piletas</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Dashboard visual con estado de color en tiempo real. Indicadores de nivel de llenado aproximado, estado actual (fermentando, reposando, etc.), y sector específico. Alertas automáticas de anomalías.
+                    </p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="feature-card p-8 rounded-lg shadow-md">
+                    <div class="icon-box mb-6">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3 class="text-primary font-bold text-2xl mb-4">Registros Enológicos y Trasiego</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Seguimiento automático de operaciones de trasiego, filtración, y análisis de laboratorio. Planificación inteligente de operaciones con historial completo. Integración con datos de temperatura y humedad.
+                    </p>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="feature-card p-8 rounded-lg shadow-md">
+                    <div class="icon-box mb-6">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-primary font-bold text-2xl mb-4">Analítica y Reportes</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Reportes personalizables en tiempo real. Análisis de rendimiento, costos de producción, y proyecciones de cosecha. Exportación en múltiples formatos para auditoría y toma de decisiones.
+                    </p>
+                </div>
+
+                <!-- Feature 5 -->
+                <div class="feature-card p-8 rounded-lg shadow-md">
+                    <div class="icon-box mb-6">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="text-primary font-bold text-2xl mb-4">Aplicación Móvil Nativa</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Acceso desde cualquier dispositivo. Captura de datos en campo, escaneo de códigos, y sincronización instantánea. Modo offline para operaciones sin conexión con sincronización posterior.
+                    </p>
+                </div>
+
+                <!-- Feature 6 -->
+                <div class="feature-card p-8 rounded-lg shadow-md">
+                    <div class="icon-box mb-6">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3 class="text-primary font-bold text-2xl mb-4">Seguridad y Normativa</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        Encriptación de datos de nivel empresarial. Cumplimiento con RGPD, normativas vinícolas internacionales, y certificaciones ISO. Auditoría completa de cambios y accesos.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonials" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="section-title text-4xl font-bold mb-4">Lo que Dicen Nuestros Clientes</h2>
+                <p class="text-gray-600 text-lg max-w-3xl mx-auto mt-12">
+                    Profesionales de la industria vitivinícola confían en VinoTrack para optimizar sus operaciones.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Testimonial 1 -->
+                <div class="testimonial-card p-10 rounded-lg shadow-lg">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="text-gray-700 italic text-lg mb-6 leading-relaxed">
+                        "VinoTrack ha revolucionado nuestra operación de bodega. La trazabilidad es impecable, y el monitoreo en tiempo real de tanques nos ha permitido reducir pérdidas en un 35%. El equipo de soporte es excepcional."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-primary font-bold">
+                            JM
+                        </div>
+                        <div>
+                            <p class="font-bold text-primary">Juan Martínez</p>
+                            <p class="text-gray-600 text-sm">Enólogo Jefe, Bodega Mendoza Estates</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 2 -->
+                <div class="testimonial-card p-10 rounded-lg shadow-lg">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="text-gray-700 italic text-lg mb-6 leading-relaxed">
+                        "Como Directora de Operaciones de Bodega, necesitaba herramientas que centralizaran toda la información. VinoTrack nos dio exactamente eso. La integración con análisis de laboratorio es genial, y los reportes son precisos."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-primary font-bold">
+                            CR
+                        </div>
+                        <div>
+                            <p class="font-bold text-primary">Catalina Rodríguez</p>
+                            <p class="text-gray-600 text-sm">Directora de Operaciones, Viñedos del Sur</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 3 -->
+                <div class="testimonial-card p-10 rounded-lg shadow-lg">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="text-gray-700 italic text-lg mb-6 leading-relaxed">
+                        "La inversión en VinoTrack fue de corto plazo. En 6 meses ya hemos recuperado el costo mediante mayor eficiencia. Es una herramienta imprescindible para cualquier bodega que tome en serio la calidad."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-primary font-bold">
+                            PC
+                        </div>
+                        <div>
+                            <p class="font-bold text-primary">Pablo Cardona</p>
+                            <p class="text-gray-600 text-sm">Gestor de Bodega, Cooperativa Vinícola San Jorge</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonial 4 -->
+                <div class="testimonial-card p-10 rounded-lg shadow-lg">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <p class="text-gray-700 italic text-lg mb-6 leading-relaxed">
+                        "Antes de VinoTrack, nuestros registros estaban dispersos en múltiples sistemas. Ahora todo está centralizado, auditable, y accesible desde cualquier lugar. Es un cambio transformacional para la bodega."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-secondary rounded-full flex items-center justify-center text-primary font-bold">
+                            MG
+                        </div>
+                        <div>
+                            <p class="font-bold text-primary">María González</p>
+                            <p class="text-gray-600 text-sm">Sumiller y Coordinadora de Proyectos, Bodega Premium Andina</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="py-20 bg-primary text-white">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl font-bold mb-4">Contáctanos</h2>
+                <p class="text-gray-100 text-lg">
+                    ¿Listo para transformar tu bodega? Envía tu consulta y nuestro equipo se pondrá en contacto en 24 horas.
+                </p>
+            </div>
+
+            <div class="bg-primary-dark bg-opacity-70 backdrop-blur-sm rounded-lg p-10">
+                <form id="contactForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="fullName" class="block text-sm font-semibold mb-3">Nombre Completo</label>
+                            <input 
+                                type="text" 
+                                id="fullName" 
+                                name="fullName" 
+                                class="input-field w-full text-gray-800"
+                                placeholder="Ej: Juan Pérez"
+                                required
+                            >
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-semibold mb-3">Correo Electrónico</label>
+                            <input 
+                                type="email" 
+                                id="email" 
+                                name="email" 
+                                class="input-field w-full text-gray-800"
+                                placeholder="Ej: juan@bodega.com"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="winery" class="block text-sm font-semibold mb-3">Nombre de Bodega / Empresa</label>
+                        <input 
+                            type="text" 
+                            id="winery" 
+                            name="winery" 
+                            class="input-field w-full text-gray-800"
+                            placeholder="Ej: Bodega Los Viñedos del Sur"
+                            required
+                        >
+                    </div>
+
+                    <div>
+                        <label for="message" class="block text-sm font-semibold mb-3">Mensaje</label>
+                        <textarea 
+                            id="message" 
+                            name="message" 
+                            rows="5" 
+                            class="input-field w-full text-gray-800 resize-none"
+                            placeholder="Cuéntanos sobre tu bodega y cómo VinoTrack puede ayudarte..."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <div class="flex items-center">
+                        <input 
+                            type="checkbox" 
+                            id="terms" 
+                            name="terms" 
+                            class="w-4 h-4 mr-3"
+                            required
+                        >
+                        <label for="terms" class="text-sm text-gray-100">
+                            Acepto la política de privacidad y términos de servicio
+                        </label>
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        class="btn-primary w-full px-8 py-4 rounded-lg text-lg font-semibold"
+                    >
+                        <i class="fas fa-paper-plane mr-2"></i>Enviar Consulta
+                    </button>
+                </form>
+
+                <div id="formMessage" class="mt-4 text-center text-sm hidden"></div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8 mt-16 text-center">
+                <div>
+                    <i class="fas fa-map-marker-alt text-secondary text-3xl mb-4"></i>
+                    <p class="text-sm text-gray-200">Mendoza, Argentina</p>
+                    <p class="text-xs text-gray-300 mt-2">Centro de operaciones</p>
+                </div>
+                <div>
+                    <i class="fas fa-envelope text-secondary text-3xl mb-4"></i>
+                    <p class="text-sm text-gray-200">contacto@vinotrack.com</p>
+                    <p class="text-xs text-gray-300 mt-2">Respuesta en 24h</p>
+                </div>
+                <div>
+                    <i class="fas fa-phone text-secondary text-3xl mb-4"></i>
+                    <p class="text-sm text-gray-200">+54 261 XXX-XXXX</p>
+                    <p class="text-xs text-gray-300 mt-2">Lunes a Viernes 9-18h</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-primary-dark text-gray-200 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-10 mb-10">
+                <div>
+                    <div class="flex items-center gap-2 mb-4">
+                        <i class="fas fa-wine-glass text-secondary text-xl"></i>
+                        <span class="text-white font-bold text-lg">VinoTrack</span>
+                    </div>
+                    <p class="text-sm text-gray-400">
+                        Plataforma integral de gestión y trazabilidad para bodegas modernas.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Producto</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#features" class="text-gray-400 hover:text-secondary transition">Características</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-secondary transition">Precios</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-secondary transition">Documentación</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-secondary transition">API</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Empresa</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#about" class="text-gray-400 hover:text-secondary transition">Acerca de</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-secondary transition">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-secondary transition">Careers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-secondary transition">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Síguenos</h4>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center text-secondary hover:bg-opacity-40 transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center text-secondary hover:bg-opacity-40 transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-secondary bg-opacity-20 rounded-full flex items-center justify-center text-secondary hover:bg-opacity-40 transition">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-400">
+                    &copy; 2026 VinoTrack. Todos los derechos reservados.
+                </p>
+                <div class="flex gap-6 mt-4 md:mt-0 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-secondary transition">Privacidad</a>
+                    <a href="#" class="text-gray-400 hover:text-secondary transition">Términos</a>
+                    <a href="#" class="text-gray-400 hover:text-secondary transition">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when a link is clicked
+        const mobileLinks = mobileMenu.querySelectorAll('a');
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+            });
+        });
+
+        // Navbar background on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.3)';
+            } else {
+                navbar.style.boxShadow = '0 2px 8px rgba(0, 0, 0, 0.1)';
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Contact Form Handler
+        const contactForm = document.getElementById('contactForm');
+        const formMessage = document.getElementById('formMessage');
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const winery = document.getElementById('winery').value;
+            const message = document.getElementById('message').value;
+
+            // Simple validation
+            if (fullName.trim() === '' || email.trim() === '' || winery.trim() === '' || message.trim() === '') {
+                formMessage.textContent = 'Por favor, completa todos los campos.';
+                formMessage.className = 'text-red-300 block';
+                return;
+            }
+
+            // Email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                formMessage.textContent = 'Por favor, ingresa un correo válido.';
+                formMessage.className = 'text-red-300 block';
+                return;
+            }
+
+            // Simulate form submission
+            formMessage.textContent = '¡Mensaje enviado correctamente! Nos pondremos en contacto pronto.';
+            formMessage.className = 'text-green-300 block';
+            
+            // Reset form
+            contactForm.reset();
+
+            // Clear message after 5 seconds
+            setTimeout(() => {
+                formMessage.className = 'hidden';
+            }, 5000);
+        });
+
+        // Scroll animations for elements
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Add animation to feature cards
+        document.querySelectorAll('.feature-card, .testimonial-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Active nav link highlighting on scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (window.scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-secondary');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('text-secondary');
+                }
+            });
+        });
+
+        // CTA button interactions
+        const ctaButtons = document.querySelectorAll('.btn-primary, .btn-secondary');
+        ctaButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                if (this.textContent.includes('Demo')) {
+                    formMessage.textContent = '¡Redirigiéndote a la página de demostración!';
+                } else if (this.textContent.includes('Contacto')) {
+                    formMessage.textContent = '¡Gracias por tu interés!';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
