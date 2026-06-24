@@ -4,8 +4,8 @@
  - Comision: D
 
 Enlaces de proyecto:
-GitHub:
-Vercel:
+GitHub: https://github.com/enobrian-maker/PFO2-Frontend.git
+Vercel: https://pfo-2-frontend-five.vercel.app
 
 -----Prompt:
 
@@ -83,5 +83,9 @@ Vercel:
 Generate the complete index.html file now following these exact instructions.
 
 
- -- Resultados y Capturas de Pantalla--
- 
+ -- Capturas de Pantalla--
+ Agente Claude:
+![Landing Claude](./Agent-Claude/Screenshot.png)
+
+Agente Codex:
+![Landing Codex](./Agent-Codex/Screenshot.png)
